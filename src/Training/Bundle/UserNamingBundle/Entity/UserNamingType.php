@@ -5,6 +5,7 @@ namespace Training\Bundle\UserNamingBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 use Training\Bundle\UserNamingBundle\Model\ExtendUserNamingType;
 
 /**
@@ -12,7 +13,15 @@ use Training\Bundle\UserNamingBundle\Model\ExtendUserNamingType;
  *
  * @ORM\Entity()
  * @ORM\Table(name="training_user_naming_type")
- * @Config()
+ * @Config(
+ *     defaultValues={
+ *          "security"={
+ *              "type"="ACL",
+ *              "group_name"="",
+ *              "category"="user_naming_management"
+ *          }
+ *     }
+ * )
  */
 class UserNamingType extends ExtendUserNamingType
 {
@@ -26,17 +35,24 @@ class UserNamingType extends ExtendUserNamingType
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank()
      */
     private string|null $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private string|null $format;
 
     public function getId(): int|null
     {
         return $this->id;
+    }
+
+    public function setId(int|null $id): void
+    {
+        $this->id = $id;
     }
 
     public function getTitle(): string|null
@@ -55,6 +71,7 @@ class UserNamingType extends ExtendUserNamingType
     {
         return $this->format;
     }
+
     public function setFormat(string $format): self
     {
         $this->format = $format;
