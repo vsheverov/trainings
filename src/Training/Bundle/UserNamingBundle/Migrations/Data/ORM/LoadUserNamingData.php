@@ -8,7 +8,7 @@ use Training\Bundle\UserNamingBundle\Entity\UserNamingType;
 
 class LoadUserNamingData extends AbstractFixture
 {
-    private array $userNamings = [
+    private const USER_NAMINGS = [
         [
             'title' => 'Official',
             'format' => 'PREFIX FIRST MIDDLE LAST SUFFIX'
@@ -28,7 +28,7 @@ class LoadUserNamingData extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        foreach ($this->userNamings as $userNamingItem) {
+        foreach (self::USER_NAMINGS as $userNamingItem) {
             $userNamingType = new UserNamingType();
 
             $userNamingType
@@ -38,9 +38,6 @@ class LoadUserNamingData extends AbstractFixture
             $manager->persist($userNamingType);
         }
 
-        if (!empty($this->userNamings)) {
-            $manager->flush();
-            $manager->clear();
-        }
+        $manager->flush();
     }
 }

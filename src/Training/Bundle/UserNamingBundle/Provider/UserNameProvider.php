@@ -11,14 +11,8 @@ use Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter;
  */
 class UserNameProvider implements EntityNameProviderInterface
 {
-    /**
-     * @var EntityNameProviderInterface
-     */
     private EntityNameProviderInterface $originalEntityNameProvider;
 
-    /**
-     * @var UserNameFormatter
-     */
     private UserNameFormatter $userNameFormatter;
 
     public function __construct(

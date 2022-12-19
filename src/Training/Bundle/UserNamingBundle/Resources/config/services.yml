@@ -1,22 +1,16 @@
 services:
 
-  training_user_name_formatter_provider:
-    class: Training\Bundle\UserNamingBundle\Provider\UserNamePartsProvider
-
-  training_user_name_formatter:
-    class: Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter
+  Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter:
     arguments:
       - '@training_user_name_formatter_provider'
 
-  oro_locale.entity_name_provider.decorator:
+  Training\Bundle\UserNamingBundle\Provider\UserNameProvider:
     decorates: oro_locale.entity_name_provider
-    class: Training\Bundle\UserNamingBundle\Provider\UserNameProvider
     arguments:
       - '@.inner'
       - '@training_user_name_formatter'
 
-  on_user_profile_page_listener:
-    class: Training\Bundle\UserNamingBundle\EventListener\UserViewListener
+  Training\Bundle\UserNamingBundle\EventListener\UserViewListener:
     arguments:
       - '@oro_locale.entity_name_provider'
     tags:

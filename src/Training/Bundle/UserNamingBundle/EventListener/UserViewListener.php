@@ -12,10 +12,6 @@ class UserViewListener
 {
     /**
      * Adds sub-block to user profile page in admin panel
-     *
-     * @param BeforeListRenderEvent $event
-     *
-     * @return void
      */
     public function onUserView(BeforeListRenderEvent $event): void
     {
