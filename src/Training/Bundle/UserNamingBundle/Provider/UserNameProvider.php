@@ -31,7 +31,7 @@ class UserNameProvider implements EntityNameProviderInterface
     public function getName($format, $locale, $entity): string
     {
         if ($entity instanceof User && $entity->getNamingType()) {
-            return $this->userNameFormatter->format($entity, $entity->getNamingType());
+            return $this->userNameFormatter->format($entity, $entity->getNamingType()->getFormat());
         }
 
         return $this->originalEntityNameProvider->getName($format, $locale, $entity);

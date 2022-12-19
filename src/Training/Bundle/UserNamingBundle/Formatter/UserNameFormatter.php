@@ -10,10 +10,10 @@ use Training\Bundle\UserNamingBundle\Entity\UserNamingType;
  */
 class UserNameFormatter
 {
-    public function format(User $user, UserNamingType $format): string
+    public function format(User $user, string $format): string
     {
         $replacements = UserNamingType::getUserNameParts($user);
 
-        return strtr($format->getFormat(), $replacements);
+        return strtr($format, $replacements);
     }
 }
