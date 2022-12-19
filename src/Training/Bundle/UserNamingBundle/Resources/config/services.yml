@@ -14,9 +14,13 @@ services:
     tags:
       - { name: kernel.event_listener, event: oro_ui.scroll_data.before.userView, method: onUserView }
 
-  Training\Bundle\UserNamingBundle\Twig\TrainingFormatExtension:
-    public: false
+  Training\Bundle\UserNamingBundle\Twig\TrainingNameFormatRuntime:
     arguments:
       - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
+    tags:
+      - { name: twig.runtime }
+
+  Training\Bundle\UserNamingBundle\Twig\TrainingFormatExtension:
+    public: false
     tags:
       - { name: twig.extension }
