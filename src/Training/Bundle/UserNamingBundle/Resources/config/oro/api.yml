@@ -1,0 +1,13 @@
+api:
+  entities:
+    Training\Bundle\UserNamingBundle\Entity\UserNamingType:
+      fields:
+        nameExample:
+          data_type: string
+          meta_property: true
+      filters:
+        fields:
+          title: ~
+      sorters:
+        fields:
+          title: ~

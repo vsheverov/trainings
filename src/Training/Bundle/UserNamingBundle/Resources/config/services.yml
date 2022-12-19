@@ -24,3 +24,18 @@ services:
     public: false
     tags:
       - { name: twig.extension }
+
+  Training\Bundle\UserNamingBundle\Api\Processor\AddUserNamingExampleForGetMethods:
+    tags:
+      - {
+        name: oro.api.processor,
+        action: get,
+        class: Training\Bundle\UserNamingBundle\Entity\UserNamingType,
+        group: finalize
+      }
+      - {
+        name: oro.api.processor,
+        action: get_list,
+        class: Training\Bundle\UserNamingBundle\Entity\UserNamingType,
+        group: finalize
+      }
