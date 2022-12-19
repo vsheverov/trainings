@@ -4,6 +4,7 @@ namespace Training\Bundle\UserNamingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Oro\Bundle\UserBundle\Entity\User;
 use Training\Bundle\UserNamingBundle\Model\ExtendUserNamingType;
 
 /**
@@ -16,7 +17,6 @@ use Training\Bundle\UserNamingBundle\Model\ExtendUserNamingType;
 class UserNamingType extends ExtendUserNamingType
 {
     /**
-     * @var int|null
      *
      * @ORM\Id
      * @ORM\Column(type="integer", name="id")
@@ -34,26 +34,16 @@ class UserNamingType extends ExtendUserNamingType
      */
     private string|null $format;
 
-    /**
-     * @return int|null
-     */
     public function getId(): int|null
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTitle(): string|null
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     * @return UserNamingType
-     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -61,22 +51,28 @@ class UserNamingType extends ExtendUserNamingType
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFormat(): string|null
     {
         return $this->format;
     }
-
-    /**
-     * @param string $format
-     * @return UserNamingType
-     */
     public function setFormat(string $format): self
     {
         $this->format = $format;
 
         return $this;
+    }
+
+    /**
+     * Provides parts of the User name that we can use in user naming
+     */
+    public static function getUserNameParts(User $user): array
+    {
+        return [
+            'PREFIX' => $user->getNamePrefix(),
+            'FIRST' => $user->getFirstName(),
+            'MIDDLE' => $user->getMiddleName(),
+            'LAST' => $user->getLastName(),
+            'SUFFIX' => $user->getNameSuffix(),
+        ];
     }
 }
