@@ -13,3 +13,4 @@ search:
         name:                   title
         target_type:            text
         target_fields:          [title]
+

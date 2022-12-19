@@ -1,31 +1,22 @@
 services:
 
-  training_user_name_formatter_container:
-    class: Training\Bundle\UserNamingBundle\Container\UserNamePartsContainer
+  Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter: ~
 
-  training_user_name_formatter:
-    class: Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter
-    arguments:
-      - '@training_user_name_formatter_container'
-
-  oro_locale.entity_name_provider.composite:
+  Training\Bundle\UserNamingBundle\Provider\UserNameProvider:
     decorates: oro_locale.entity_name_provider
-    class: Training\Bundle\UserNamingBundle\Provider\UserNameProvider
     arguments:
       - '@.inner'
-      - '@training_user_name_formatter'
+      - Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter
 
-  on_user_profile_page_listener:
-    class: Training\Bundle\UserNamingBundle\EventListener\UserViewListener
+  Training\Bundle\UserNamingBundle\EventListener\UserViewListener:
     arguments:
       - '@oro_security.authorization_checker'
     tags:
       - { name: kernel.event_listener, event: oro_ui.scroll_data.before.userView, method: onUserView }
 
-  training_user_name_formatter.twig.extension.name_formatter:
-    class: Training\Bundle\UserNamingBundle\Twig\TrainingFormatExtension
+  Training\Bundle\UserNamingBundle\Twig\TrainingFormatExtension:
     public: false
     arguments:
-      - '@training_user_name_formatter'
+      - Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter
     tags:
       - { name: twig.extension }
