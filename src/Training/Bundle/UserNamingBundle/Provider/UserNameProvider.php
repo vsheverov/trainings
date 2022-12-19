@@ -11,20 +11,15 @@ use Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter;
  */
 class UserNameProvider implements EntityNameProviderInterface
 {
-    /**
-     * @var EntityNameProviderInterface
-     */
     private EntityNameProviderInterface $originalEntityNameProvider;
 
-    /**
-     * @var UserNameFormatter
-     */
     private UserNameFormatter $userNameFormatter;
 
     public function __construct(
         EntityNameProviderInterface $originalEntityNameProvider,
-        UserNameFormatter $userNameFormatter
-    ) {
+        UserNameFormatter           $userNameFormatter
+    )
+    {
         $this->originalEntityNameProvider = $originalEntityNameProvider;
         $this->userNameFormatter = $userNameFormatter;
     }
@@ -36,11 +31,11 @@ class UserNameProvider implements EntityNameProviderInterface
      */
     public function getName($format, $locale, $entity): string
     {
-        if (!$entity instanceof User || !$entity->getNamingType()) {
-            return $this->originalEntityNameProvider->getName($format, $locale, $entity);
+        if ($entity instanceof User && $entity->getNamingType()) {
+            return $this->userNameFormatter->format($entity, $entity->getNamingType()->getFormat());
         }
 
-        return $this->userNameFormatter->format($entity, $entity->getNamingType()->getFormat());
+        return $this->originalEntityNameProvider->getName($format, $locale, $entity);
     }
 
     /**
