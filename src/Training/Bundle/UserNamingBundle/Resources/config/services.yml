@@ -6,7 +6,7 @@ services:
     decorates: oro_locale.entity_name_provider
     arguments:
       - '@.inner'
-      - Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter
+      - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
 
   Training\Bundle\UserNamingBundle\EventListener\UserViewListener:
     arguments:
@@ -17,6 +17,6 @@ services:
   Training\Bundle\UserNamingBundle\Twig\TrainingFormatExtension:
     public: false
     arguments:
-      - Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter
+      - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
     tags:
       - { name: twig.extension }
