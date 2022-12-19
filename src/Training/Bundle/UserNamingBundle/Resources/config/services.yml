@@ -1,14 +1,12 @@
 services:
 
-  Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter:
-    arguments:
-      - '@training_user_name_formatter_provider'
+  Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter: ~
 
   Training\Bundle\UserNamingBundle\Provider\UserNameProvider:
     decorates: oro_locale.entity_name_provider
     arguments:
       - '@.inner'
-      - '@training_user_name_formatter'
+      - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
 
   Training\Bundle\UserNamingBundle\EventListener\UserViewListener:
     arguments:
