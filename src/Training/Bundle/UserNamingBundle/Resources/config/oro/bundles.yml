@@ -1,3 +1,2 @@
 bundles:
   - { name: Training\Bundle\UserNamingBundle\TrainingUserNamingBundle, priority: 1000 }
-  -
