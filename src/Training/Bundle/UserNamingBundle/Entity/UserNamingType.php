@@ -92,4 +92,17 @@ class UserNamingType extends ExtendUserNamingType
             'SUFFIX' => $user->getNameSuffix(),
         ];
     }
+
+    public static function getExampleUser(): User
+    {
+        $user = new User();
+
+        $user->setNamePrefix('Mr.')
+            ->setFirstName('John')
+            ->setMiddleName('M')
+            ->setLastName('Doe')
+            ->setNameSuffix('Jr.');
+
+        return $user;
+    }
 }

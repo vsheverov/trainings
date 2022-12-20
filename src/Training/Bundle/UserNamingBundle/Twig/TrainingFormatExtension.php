@@ -2,8 +2,6 @@
 
 namespace Training\Bundle\UserNamingBundle\Twig;
 
-use Oro\Bundle\UserBundle\Entity\User;
-use Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 

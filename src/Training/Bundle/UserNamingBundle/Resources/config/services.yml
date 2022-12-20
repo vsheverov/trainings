@@ -26,6 +26,8 @@ services:
       - { name: twig.extension }
 
   Training\Bundle\UserNamingBundle\Api\Processor\AddUserNamingExampleForGetMethods:
+    arguments:
+      - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
     tags:
       - {
         name: oro.api.processor,
