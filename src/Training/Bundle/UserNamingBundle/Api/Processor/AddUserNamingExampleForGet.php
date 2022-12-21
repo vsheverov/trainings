@@ -25,11 +25,11 @@ class AddUserNamingExampleForGet implements ProcessorInterface
 
         $result = $context->getResult();
 
-        if (!$result || !isset($item['format'])) {
+        if (!$result || !isset($result['format'])) {
             return;
         }
 
-        $result[self::META_PROPERTY_KEY] = $this->nameFormatter->formatExample($item['format']);
+        $result[self::META_PROPERTY_KEY] = $this->nameFormatter->formatExample($result['format']);
 
         $context->setResult($result);
     }
