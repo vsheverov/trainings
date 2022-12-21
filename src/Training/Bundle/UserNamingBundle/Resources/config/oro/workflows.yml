@@ -1,0 +1,16 @@
+imports:
+  - { resource: 'includes/training_user_naming_attributes.yml' }
+  - { resource: 'includes/training_user_naming_steps.yml'}
+  - { resource: 'includes/training_user_naming_transitions.yml'}
+
+workflows:
+  training_user_naming:
+    entity: Oro\Bundle\UserBundle\Entity\User
+    entity_attribute: entity
+    steps_display_ordered: false
+    priority: 0
+    defaults:
+      active: true
+    applications:
+      - default
+    start_step: step_init

@@ -1,0 +1,22 @@
+workflows:
+  training_user_naming:
+    steps:
+      step_init:
+        is_final: false
+        order: 0
+        allowed_transitions:
+          - transition_set_name_parts
+        _is_start: true
+      parts_are_set:
+        is_final: false
+        order: 1
+        allowed_transitions:
+          - transition_set_name_format
+        _is_start: false
+      format_is_set:
+        is_final: false
+        order: 2
+        allowed_transitions:
+          - transition_reinitialize_name
+        _is_start: false
+

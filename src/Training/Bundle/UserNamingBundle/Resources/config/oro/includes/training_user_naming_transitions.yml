@@ -1,0 +1,45 @@
+workflows:
+  training_user_naming:
+    transitions:
+      transition_set_name_parts:
+        display_type: dialog
+        step_to: parts_are_set
+        is_start: false
+        transition_definition: transition_definition_set_name_parts
+        is_unavailable_hidden: true
+        is_hidden: false
+        form_options:
+          attribute_fields:
+            firstName:
+              options:
+                required: true
+            lastName:
+              options:
+                required: true
+            middleName: ~
+            namePrefix: ~
+            nameSuffix: ~
+      transition_set_name_format:
+        display_type: dialog
+        step_to: format_is_set
+        is_start: false
+        transition_definition: transition_definition_set_name_format
+        is_unavailable_hidden: true
+        is_hidden: false
+        form_options:
+          attribute_fields:
+            namingType:
+              form_type: Symfony\Bridge\Doctrine\Form\Type\EntityType
+              options:
+                choice_label: title
+                class: Training\Bundle\UserNamingBundle\Entity\UserNamingType
+      transition_reinitialize_name:
+        display_type: dialog
+        step_to: step_init
+        is_start: false
+        is_unavailable_hidden: true
+        transition_definition: transition_definition_reinitialize_name
+    transition_definitions:
+      transition_definition_set_name_parts: ~
+      transition_definition_set_name_format: ~
+      transition_definition_reinitialize_name: ~

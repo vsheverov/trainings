@@ -1,0 +1,18 @@
+oro:
+  workflow:
+    training_user_naming:
+      label: 'User Naming Flow'
+      step:
+        step_init:
+          label: 'Start User Naming Flow'
+        parts_are_set:
+          label: 'Parts are set'
+        format_is_set:
+          label: 'Format is set'
+      transition:
+        transition_set_name_parts:
+          label: 'Set name parts'
+        transition_set_name_format:
+          label: 'Set name format'
+        transition_reinitialize_name:
+          label: 'Reinitialize name'
