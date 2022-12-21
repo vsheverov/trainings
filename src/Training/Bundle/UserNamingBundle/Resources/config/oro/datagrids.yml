@@ -14,6 +14,7 @@ datagrids:
                     - u.id
                     - u.title
                     - u.format
+                    - u.example
                 from:
                     - { table: 'Training\Bundle\UserNamingBundle\Entity\UserNamingType', alias: u }
             hints:

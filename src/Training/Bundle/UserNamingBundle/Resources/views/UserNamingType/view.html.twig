@@ -5,7 +5,7 @@
 {% block content_data %}
 
     {% set example %}
-        {% include '@TrainingUserNaming/User/example_format.html.twig' with {format: entity.format} %}
+        {{ entity.example }}
     {% endset %}
 
     {% set innerData %}
