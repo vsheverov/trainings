@@ -27,7 +27,7 @@ class AddUserNamingExampleForGetList implements ProcessorInterface
 
         $result = $context->getResult();
 
-        if (! $result || !is_array($result)) {
+        if (!is_array($result)) {
             return;
         }
 
