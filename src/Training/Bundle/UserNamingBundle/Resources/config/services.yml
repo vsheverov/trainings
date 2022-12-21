@@ -25,7 +25,7 @@ services:
     tags:
       - { name: twig.extension }
 
-  Training\Bundle\UserNamingBundle\Api\Processor\AddUserNamingExampleForGetMethods:
+  Training\Bundle\UserNamingBundle\Api\Processor\AddUserNamingExampleForGet:
     arguments:
       - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
     tags:
@@ -35,6 +35,11 @@ services:
         class: Training\Bundle\UserNamingBundle\Entity\UserNamingType,
         group: finalize
       }
+
+  Training\Bundle\UserNamingBundle\Api\Processor\AddUserNamingExampleForGetList:
+    arguments:
+      - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
+    tags:
       - {
         name: oro.api.processor,
         action: get_list,
