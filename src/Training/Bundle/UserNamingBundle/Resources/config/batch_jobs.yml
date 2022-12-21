@@ -1,0 +1,14 @@
+connector:
+  name: oro_importexport
+  jobs:
+    user_namings_import_job:
+      title: "Import new user namings from json"
+      type: import
+      steps:
+        import:
+          title: import
+          class: Oro\Bundle\BatchBundle\Step\ItemStep
+          services:
+            reader: Training\Bundle\UserNamingBundle\Integration\Provider\Connector\UserNamingsImportConnector
+            processor: oro_importexport.processor.import_delegate
+            writer:    oro_integration.writer.persistent_batch_writer

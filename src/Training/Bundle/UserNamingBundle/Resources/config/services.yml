@@ -41,3 +41,66 @@ services:
         class: Training\Bundle\UserNamingBundle\Entity\UserNamingType,
         group: finalize
       }
+
+
+  Training\Bundle\UserNamingBundle\Integration\Provider\TrainingFakeChannelType:
+    tags:
+      - { name: oro_integration.channel, type: training_fake }
+
+  Training\Bundle\UserNamingBundle\Integration\Provider\Transport\FakeTransport:
+    tags:
+      - { name: oro_integration.transport, type: training_fake_transport, channel_type: training_fake }
+
+  Training\Bundle\UserNamingBundle\Integration\Form\Type\TransportSettingsFormType:
+    tags:
+      - { name: form.type, alias: training_fake_transport_setting_form_type }
+
+  Training\Bundle\UserNamingBundle\Integration\Model\SyncManager:
+    arguments:
+      - '@doctrine'
+
+  Training\Bundle\UserNamingBundle\Integration\Provider\Connector\UserNamingsImportConnector:
+    arguments:
+      - '@oro_importexport.context_registry'
+      - '@oro_integration.logger.strategy'
+      - '@oro_integration.provider.connector_context_mediator'
+    tags:
+        - { name: oro_integration.connector, channel_type: training_fake, type: user_namings_import }
+
+  Training\Bundle\UserNamingBundle\Integration\Command\FakeIntegrationSync:
+    arguments:
+      - '@doctrine'
+      - '@Training\Bundle\UserNamingBundle\Integration\Model\SyncManager'
+      - '@oro_message_queue.client.message_producer'
+      - '@oro_importexport.processor.registry'
+    tags:
+      - { name: console.command }
+
+  Training\Bundle\UserNamingBundle\EventListener\UserNamingTypeListener:
+    arguments:
+      - '@oro_message_queue.client.message_producer'
+    tags:
+      - {
+        name: doctrine.orm.entity_listener,
+        entity: 'Training\Bundle\UserNamingBundle\Entity\UserNamingType',
+        event: preUpdate,
+        method: preUpdateHandler,
+        lazy: true
+      }
+      - {
+        name: doctrine.orm.entity_listener,
+        entity: Training\Bundle\UserNamingBundle\Entity\UserNamingType,
+        event: postPersist,
+        method: postPersistHandler,
+        lazy: true
+      }
+
+  Training\Bundle\UserNamingBundle\Async\Processor\GenerateExampleColumnUserNamingByIdMessageProcessor:
+    arguments:
+      - '@oro_message_queue.job.runner'
+      - '@doctrine'
+      - '@Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter'
+    calls:
+      - [setLogger,  ['@monolog.logger']]
+    tags:
+      - { name: 'oro_message_queue.client.message_processor' }

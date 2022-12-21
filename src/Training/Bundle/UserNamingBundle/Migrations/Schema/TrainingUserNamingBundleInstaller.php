@@ -16,7 +16,7 @@ class TrainingUserNamingBundleInstaller implements Installation, ExtendExtension
 
     public function getMigrationVersion(): string
     {
-        return 'v1_1';
+        return 'v1_3';
     }
 
     public function up(Schema $schema, QueryBag $queries)
@@ -26,6 +26,8 @@ class TrainingUserNamingBundleInstaller implements Installation, ExtendExtension
         $this->createUserNamingTypeFields($table);
 
         $this->addRelationToUser($table, $schema);
+        $this->addUrlColumnToTransportForIntegration($schema);
+        $this->addExampleColumn($schema);
     }
 
     private function createUserNamingTypeFields(Table $table)
@@ -59,5 +61,24 @@ class TrainingUserNamingBundleInstaller implements Installation, ExtendExtension
     public function setExtendExtension(ExtendExtension $extendExtension)
     {
         $this->extendExtension = $extendExtension;
+    }
+
+    private function addUrlColumnToTransportForIntegration(Schema $schema)
+    {
+        $table = $schema->getTable('oro_integration_transport');
+
+        $table->addColumn('fki_url', 'string', [
+            'length' => 120,
+            'notnull' => false,
+        ]);
+    }
+
+    private function addExampleColumn(Schema $schema)
+    {
+        $table = $schema->getTable('training_user_naming_type');
+
+        $table->addColumn('example', 'string', [
+            'notnull' => false
+        ]);
     }
 }
