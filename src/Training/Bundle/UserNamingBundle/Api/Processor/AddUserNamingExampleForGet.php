@@ -6,6 +6,9 @@ use Oro\Component\ChainProcessor\ContextInterface;
 use Oro\Component\ChainProcessor\ProcessorInterface;
 use Training\Bundle\UserNamingBundle\Formatter\UserNameFormatter;
 
+/**
+ * Add nameExample property for api get action according to User Naming API configuration
+ */
 class AddUserNamingExampleForGet implements ProcessorInterface
 {
     private const META_PROPERTY_KEY = 'nameExample';
