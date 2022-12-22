@@ -16,6 +16,13 @@ training:
   action:
     view_naming:
       label: 'Can user see naming column?'
+  integration:
+    fake:
+      title:
+        label: 'Training Fake Integration'
+      connectors:
+        import_user_namings:
+          label: 'Import User Namings'
 
 oro:
   user:

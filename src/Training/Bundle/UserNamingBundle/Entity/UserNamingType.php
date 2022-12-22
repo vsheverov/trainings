@@ -45,14 +45,22 @@ class UserNamingType extends ExtendUserNamingType
      */
     private string|null $format;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private string|null $example;
+
     public function getId(): int|null
     {
         return $this->id;
     }
 
-    public function setId(int|null $id): void
+    public function setId(int|null $id): self
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getTitle(): string|null
@@ -79,6 +87,16 @@ class UserNamingType extends ExtendUserNamingType
         return $this;
     }
 
+    public function getExample(): ?string
+    {
+        return $this->example;
+    }
+
+    public function setExample(?string $example): void
+    {
+        $this->example = $example;
+    }
+
     /**
      * Provides parts of the User name that we can use in user naming
      */
@@ -91,5 +109,29 @@ class UserNamingType extends ExtendUserNamingType
             'LAST' => $user->getLastName(),
             'SUFFIX' => $user->getNameSuffix(),
         ];
+    }
+
+    public static function getExampleUser(): User
+    {
+        $user = new User();
+
+        $user->setNamePrefix('Mr.')
+            ->setFirstName('John')
+            ->setMiddleName('M')
+            ->setLastName('Doe')
+            ->setNameSuffix('Jr.');
+
+        return $user;
+    }
+
+    public static function fromArray(array $source): self
+    {
+        $userNaming = new self();
+
+        $userNaming->id = $source['id'];
+        $userNaming->title = $source['title'];
+        $userNaming->format = $source['format'];
+
+        return $userNaming;
     }
 }

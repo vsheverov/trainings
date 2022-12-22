@@ -18,8 +18,7 @@ class UserNameProvider implements EntityNameProviderInterface
     public function __construct(
         EntityNameProviderInterface $originalEntityNameProvider,
         UserNameFormatter           $userNameFormatter
-    )
-    {
+    ) {
         $this->originalEntityNameProvider = $originalEntityNameProvider;
         $this->userNameFormatter = $userNameFormatter;
     }

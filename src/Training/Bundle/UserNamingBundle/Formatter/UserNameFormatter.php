@@ -16,4 +16,11 @@ class UserNameFormatter
 
         return strtr($format, $replacements);
     }
+
+    public function formatExample(string $format): string
+    {
+        $user = UserNamingType::getExampleUser();
+
+        return $this->format($user, $format);
+    }
 }
